@@ -1,0 +1,6 @@
+# Project exclude paths
+/.gradle/
+/app/build/
+/app/build/intermediates/javac/taskApiDebug/classes/
+/lib_task_api/build/
+/lib_task_api/build/intermediates/javac/debug/classes/

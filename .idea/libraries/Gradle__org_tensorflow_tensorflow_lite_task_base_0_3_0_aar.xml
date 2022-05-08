@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.tensorflow:tensorflow-lite-task-base:0.3.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2f490ebdad24e968a02baab33e2d1c26/transformed/tensorflow-lite-task-base-0.3.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4986181f33b03859263a36bd5dbff477/transformed/tensorflow-lite-task-base-0.3.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4986181f33b03859263a36bd5dbff477/transformed/tensorflow-lite-task-base-0.3.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4986181f33b03859263a36bd5dbff477/transformed/tensorflow-lite-task-base-0.3.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
