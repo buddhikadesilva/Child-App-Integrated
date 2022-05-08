@@ -98,26 +98,11 @@ public class NLService extends NotificationListenerService {
         }
     }
 
-//    private static final String TAG = "NotificationListener";
-//    private static final String WA_PACKAGE = "com.whatsapp";
 
     @Override
     public void onListenerConnected() {
         Log.i(TAG, "Notification Listener connected");
     }
 
-//    @Override
-//    public void onNotificationPosted(StatusBarNotification sbn) {
-//        if (!sbn.getPackageName().equals(WA_PACKAGE)) return;
-//
-//        Notification notification = sbn.getNotification();
-//        Bundle bundle = notification.extras;
-//
-//        String from = bundle.getString(NotificationCompat.EXTRA_TITLE);
-//        String message = bundle.getString(NotificationCompat.EXTRA_TEXT);
-//
-//        Log.i(TAG, "From: " + from);
-//        Log.i(TAG, "Message: " + message);
-//    }
 
 }

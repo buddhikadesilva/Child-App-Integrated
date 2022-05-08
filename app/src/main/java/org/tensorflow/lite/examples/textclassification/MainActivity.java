@@ -55,10 +55,9 @@ public class MainActivity extends AppCompatActivity {
   private EditText inputEditText;
   private Handler handler;
   private ScrollView scrollView;
-  private NotificationReceiver nReceiver;
+  private NotificationReceiver nReceiver; //variable for get read notification - *notification related things coded in NLService.java file
   DAOAlert daoAlert;
-    String[] predatorsWords = {"8", "99", "142", "182","1174","ASL","CD9","FYEO","GNOC","GYPO","HAK","IWSN","KFY","KPC","MIRL","MOS","NIFOC","NSFW","P911","PAW","PAL","PIR","POS","PRON","RUMORF","SWAK","TDTM","WTTO"};
-    private TextView txtView;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -67,22 +66,23 @@ public class MainActivity extends AppCompatActivity {
     Log.v(TAG, "onCreate");
       startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
 
-      nReceiver = new NotificationReceiver();
+      nReceiver = new NotificationReceiver(); // create notification service object
       IntentFilter filter = new IntentFilter();
       filter.addAction("NOTIFICATION_LISTENER_EXAMPLE");
-      registerReceiver(nReceiver,filter);
-      daoAlert = new DAOAlert();
+      registerReceiver(nReceiver,filter); // run the notification service
+
+      daoAlert = new DAOAlert(); // database configuration - db related files - Alert.java , DAOAlert.java
 
 
 
 
 
-    client = new TextClassificationClient(getApplicationContext());
+    client = new TextClassificationClient(getApplicationContext()); // load TensorFlow modal
     handler = new Handler();
     Button classifyButton = findViewById(R.id.button);
     classifyButton.setOnClickListener(
         (View v) -> {
-          classify("8989",inputEditText.getText().toString());
+          classify("8989",inputEditText.getText().toString()); // input a msg from UI and classify using the modal
         });
     resultTextView = findViewById(R.id.result_text_view);
     inputEditText = findViewById(R.id.input_text);
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     Log.v(TAG, "onStart");
     handler.post(
         () -> {
-          client.load();
+          client.load(); // load TensorFlow modal
         });
   }
 
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     Log.v(TAG, "onStop");
     handler.post(
         () -> {
-          client.unload();
+          client.unload(); // unload TensorFlow modal
         });
   }
 
@@ -114,9 +114,7 @@ public class MainActivity extends AppCompatActivity {
     handler.post(
         () -> {
           // Run text classification with TF Lite.
-
                 List<Result> results = client.classify(text);
-
                 // Show classification result on screen
                 showResult(from, text, results);
 
@@ -162,107 +160,31 @@ public class MainActivity extends AppCompatActivity {
         });
   }
 
-
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(nReceiver);
     }
 
-
-
-    public void buttonClicked(View v){
-
-//        if(v.getId() == R.id.btnCreateNotify){
-//            NotificationManager nManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//            NotificationCompat.Builder ncomp = new NotificationCompat.Builder(this);
-//            ncomp.setContentTitle("My Notification");
-//            //  ncomp.setContentText("Notification Listener Service Example");
-//            //  ncomp.setTicker("Notification Listener Service Example");
-//            // ncomp.setSmallIcon(R.drawable.ic_launcher);
-//            ncomp.setAutoCancel(true);
-//            nManager.notify((int)System.currentTimeMillis(),ncomp.build());
-//        }
-//        else if(v.getId() == R.id.btnClearNotify){
-//            Intent i = new Intent("NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
-//            i.putExtra("command","clearall");
-//            sendBroadcast(i);
-//        }
-//        else if(v.getId() == R.id.btnListNotify){
-//            Intent i = new Intent("NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
-//            i.putExtra("command","list");
-//            sendBroadcast(i);
-//        }
-
-
-    }
-
-    class NotificationReceiver extends BroadcastReceiver {
+    class NotificationReceiver extends BroadcastReceiver { // Receive notifications from background
 
         @Override
         public void onReceive(Context context, Intent intent) {
 
             client = new TextClassificationClient(context);
-            client.load();
-         //   handler = new Handler();
-//            String temp = intent.getStringExtra("notification_event") + "\n" + txtView.getText();
+            client.load(); // load TensorFlow modal
             if (intent.getStringExtra("from")!=null){
                 String from = intent.getStringExtra("from");
                 String message = intent.getStringExtra("message");
-//                txtView.setText(from+" "+message);
-                classify(from,message);
+                classify(from,message); // classify the notification using the modal
 
-
-//                Alert alert=new Alert(from,message,checkMessage(message));
-//                daoAlert.add(alert).addOnSuccessListener(suc->{
-//                    Toast.makeText(getApplicationContext(),"Record is inserted",Toast.LENGTH_SHORT).show();
-//                }).addOnFailureListener(er->
-//                {
-//                    Toast.makeText(getApplicationContext(),""+er.getMessage(),Toast.LENGTH_SHORT).show();
-//                });
             }
 
 
         }
     }
 
-//    public String checkMessage(String msg){
-//
-//        String[] words=msg.split("\\s");//splits the string based on string
-//
-//        Collection<String> coll1 = Arrays.asList(words);
-//        Collection<String> coll2 = Arrays.asList(predatorsWords);
-//
-//        // ArrayList
-//        ArrayList<String> list1 = new ArrayList<>();
-//        ArrayList<String> list2 = new ArrayList<>();
-//
-//        list1.addAll(coll1);
-//        list2.addAll(coll2);
-//
-//        list2.retainAll(list1);
-//
-//        System.out.println(list2);
-//
-//        // TreeSet
-//        TreeSet<String> set1 = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-//        TreeSet<String> set2 = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-//
-//        set1.addAll(coll1);
-//        set2.addAll(coll2);
-//
-//        set2.retainAll(set1);
-//
-//        System.out.println(set2);
-//        if(set2.isEmpty()){
-//            return "No words found";
-//        }else{
-//            return String.valueOf(set2);
-//        }
-//
-//    }
+
 
 
 
